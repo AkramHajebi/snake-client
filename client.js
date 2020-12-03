@@ -4,31 +4,34 @@ const net = require('net');
 const connect = function() {
 
   const conn = net.createConnection({
-    host: "localhost",
+    host: 'localhost',
     port: 50541
   });
 
-  conn.on("data", (data) => console.log('haha'));
-
-
   // interpret incoming data as text
   conn.setEncoding('utf8');
+
+  // handeling data from server
   conn.on('data', (data) => {  // conn is client
     console.log(data);
-    console.log("Successfully connected to game server");
-    console.log('Name: Ah');
-    //return data
-  }); 
   
-  // conn.on('connection', () => {  // any string
-  // console.log('how are you?');
-    
- //});
-
-
-  //conn.write(action());
+  });
 
   return conn;
+
+  // conn.on('connect', () => {  // conn is client
+    
+  //   console.log("Successfully connected to game server");
+  //   conn.write('Name: Ah');
+    
+  // }); 
+
+  //  conn.on('connect',()=>{ 
+  //    setTimeout(function(){ conn.write("Move: up");}, 50);
+  //  });
+    
+    
+  //return conn;
 };
 
 module.exports = {connect};
