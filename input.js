@@ -4,11 +4,20 @@
  */
 const setupInput = function() {
   const stdin = process.stdin;
-  stdin.setRawMode(true);   // If true, configures the tty.ReadStream to operate as a raw device. 
+  stdin.setRawMode(true);
   stdin.setEncoding('utf8');
-  stdin.resume();   //Standard input streams are paused by default, so call process.stdin.resume() to resume receiving.
-  return stdin;
-}
+  stdin.resume();
 
+  stdin.on('data', handleUserInput); //Handling CTRL + C User Input
+
+  return stdin;
+};
+
+
+const handleUserInput = function(key) {
+ if(key==='\u0003') {
+   process.exit();
+ }
+};
 
 module.exports = {setupInput};
